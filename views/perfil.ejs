@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= pet.nombre %> - PetQR</title>
+</head>
+<body>
+  <h1><%= pet.nombre %></h1>
+  <% if (pet.foto_url) { %>
+    <img src="<%= pet.foto_url %>" alt="Foto de <%= pet.nombre %>" width="200" />
+  <% } %>
+  <p><strong>Teléfono dueño:</strong> <%= pet.dueno_tel %></p>
+  <p><strong>WhatsApp dueño:</strong> <%= pet.dueno_whatsapp %></p>
+  <p><strong>Notas:</strong> <%= pet.notas %></p>
+  <p><a href="/">Volver al inicio</a></p>
+</body>
+</html>

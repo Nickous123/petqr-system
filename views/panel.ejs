@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Administración - PetQR</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    a.button {
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    a.button:hover { background-color: #0056b3; }
+    form { display: inline; }
+    input[type="password"] {
+      width: 120px;
+      padding: 4px;
+    }
+    input[type="submit"] {
+      padding: 4px 8px;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Panel de Administración - PetQR</h1>
+
+  <p>
+    <a href="/admin/etiquetas?clave=<%= clave %>" target="_blank" class="button">
+      📄 Descargar etiquetas en PDF
+    </a>
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% mascotas.forEach(mascota => { %>
+        <tr>
+          <td><%= mascota.nombre %></td>
+          <td>
+            <a href="/editar/<%= mascota.id %>">Editar</a> |
+            <a href="/admin/escanes/<%= mascota.id %>?clave=<%= clave %>">Escaneos</a> |
+            <form method="POST" action="/admin/eliminar/<%= mascota.id %>" onsubmit="return confirm('¿Eliminar mascota <%= mascota.nombre %>?');">
+              <input type="password" name="clave" placeholder="Clave" required />
+              <input type="submit" value="Eliminar" />
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

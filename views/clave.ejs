@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ingresar clave - PetQR</title>
+</head>
+<body>
+  <h1>Ingresar clave para editar ficha</h1>
+  <form method="POST" action="/editar/<%= id %>/verificar">
+    <label>Clave: <input type="password" name="clave" required /></label><br /><br />
+    <button type="submit">Verificar</button>
+  </form>
+  <p><a href="/">Volver al inicio</a></p>
+</body>
+</html>

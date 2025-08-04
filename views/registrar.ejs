@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registrar mascota - PetQR</title>
+</head>
+<body>
+  <h1>Registrar nueva mascota</h1>
+  <form method="POST" action="/registrar">
+    <label>Nombre: <input type="text" name="nombre" required /></label><br /><br />
+    <label>URL Foto: <input type="url" name="foto_url" /></label><br /><br />
+    <label>Teléfono dueño: <input type="tel" name="dueno_tel" /></label><br /><br />
+    <label>WhatsApp dueño: <input type="tel" name="dueno_whatsapp" /></label><br /><br />
+    <label>Notas: <textarea name="notas"></textarea></label><br /><br />
+    <label>Clave para editar ficha: <input type="password" name="clave" required /></label><br /><br />
+    <button type="submit">Registrar</button>
+  </form>
+  <p><a href="/">Volver al inicio</a></p>
+</body>
+</html>
