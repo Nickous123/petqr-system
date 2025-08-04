@@ -99,6 +99,20 @@ app.get('/admin', (req, res) => {
   }
 });
 
+app.get('/admin/historial', (req, res) => {
+  const clave = req.query.clave;
+  if (clave !== 'admin123') return res.status(403).send('Acceso denegado');
+
+  const registros = db.prepare(`
+    SELECT scans.fecha, scans.ip, scans.pet_id, pets.nombre
+    FROM scans
+    JOIN pets ON pets.id = scans.pet_id
+    ORDER BY scans.fecha DESC
+  `).all();
+
+  res.render('historial', { registros, clave });
+});
+
 
 // Inicio
 app.get('/', (req, res) => {

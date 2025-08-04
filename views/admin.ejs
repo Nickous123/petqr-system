@@ -1,31 +1,31 @@
-h1🐾 Panel de Administraciónh1
+<h1>🐾 Panel de Administración</h1>
 
-table border=1
-  tr
-    thNombreth
-    thTeléfonoth
-    thWhatsAppth
-    thEditarth
-    thEliminarth
-  tr
-  % mascotas.forEach(m = { %
-    tr
-      td%= m.nombre %td
-      td%= m.dueno_tel %td
-      td%= m.dueno_whatsapp %td
-      tda href=editar%= m.id %✏️atd
-      td
-        form action=eliminar%= m.id %clave=%= clave % method=post onsubmit=return confirm('¿Eliminar esta mascota')
-          button🗑️button
-        form
-      td
-    tr
-  % }) %
-table
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Nombre</th>
+    <th>Teléfono</th>
+    <th>WhatsApp</th>
+    <th>Editar</th>
+    <th>Eliminar</th>
+  </tr>
+  <% mascotas.forEach(m => { %>
+    <tr>
+      <td><%= m.nombre %></td>
+      <td><%= m.dueno_tel %></td>
+      <td><%= m.dueno_whatsapp %></td>
+      <td><a href="/editar/<%= m.id %>">✏️</a></td>
+      <td>
+        <form action="/eliminar/<%= m.id %>?clave=<%= clave %>" method="post" onsubmit="return confirm('¿Eliminar esta mascota?')">
+          <button>🗑️</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>
 
-br
+<br>
 
-form action=adminexportar method=get
-  input type=hidden name=clave value=%= clave %
-  button📤 Exportar base como CSVbutton
-form
+<form action="/admin/exportar" method="get">
+  <input type="hidden" name="clave" value="<%= clave %>">
+  <button>📤 Exportar base como CSV</button>
+</form>

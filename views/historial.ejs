@@ -1,0 +1,21 @@
+<h1>📋 Historial de Escaneos</h1>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Fecha y hora</th>
+    <th>IP</th>
+    <th>Nombre de la mascota</th>
+    <th>ID</th>
+  </tr>
+  <% registros.forEach(r => { %>
+    <tr>
+      <td><%= r.fecha %></td>
+      <td><%= r.ip %></td>
+      <td><%= r.nombre %></td>
+      <td><%= r.pet_id %></td>
+    </tr>
+  <% }) %>
+</table>
+
+<br>
+<a href="/admin?clave=<%= clave %>">⬅️ Volver al panel</a>
