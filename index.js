@@ -88,7 +88,11 @@ app.post('/editar/:id', (req, res) => {
 
 // Inicio
 app.get('/', (req, res) => {
-  res.send('<h1>🐾 Bienvenido a PetQR</h1><p><a href="/registrar">Registrar mascota</a></p>');
+  res.send(`
+  <h1>🐾 Bienvenido a PetQR</h1>
+  <p><a href="/registrar">Registrar mascota</a></p>
+  <p><a href="/admin?clave=admin123">🔐 Ingresar como administrador</a></p>
+`);
 });
 
 const PORT = process.env.PORT || 3000;
