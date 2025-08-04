@@ -86,6 +86,20 @@ app.post('/editar/:id', (req, res) => {
   }
 });
 
+// Ruta del panel de administración
+app.get('/admin', (req, res) => {
+  const clave = req.query.clave;
+  if (clave !== 'admin123') return res.status(403).send('Acceso denegado');
+
+  try {
+    const mascotas = db.prepare('SELECT * FROM pets').all();
+    res.render('admin', { mascotas, clave });
+  } catch (err) {
+    res.status(500).send('Error al cargar el panel');
+  }
+});
+
+
 // Inicio
 app.get('/', (req, res) => {
   res.send(`
