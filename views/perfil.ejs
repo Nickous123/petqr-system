@@ -13,5 +13,42 @@
   <p><strong>WhatsApp dueño:</strong> <%= pet.dueno_whatsapp %></p>
   <p><strong>Notas:</strong> <%= pet.notas %></p>
   <p><a href="/">Volver al inicio</a></p>
+
+<% if (pet.dueno_whatsapp) { 
+     const numero = pet.dueno_whatsapp.replace(/[^0-9]/g, '');
+%>
+  <button
+    onclick="enviarUbicacionWhatsApp('<%= numero %>')"
+    style="background-color:#25D366; color:white; border:none; padding:10px 15px; border-radius:5px; font-size:1em; cursor:pointer;"
+  >
+    📍 Enviar ubicación por WhatsApp
+  </button>
+<% } %>
+
+<br><br>
+<form action="/descargar-qr/<%= pet.id %>" method="get">
+  <button>⬇️ Descargar QR personalizado</button>
+</form>
+
+
+  <script>
+  function enviarUbicacionWhatsApp(numero) {
+    if (!navigator.geolocation) {
+      alert('Tu navegador no soporta geolocalización');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const mensaje = `Hola, encontré a tu mascota gracias a su QR PetQR. Esta es mi ubicación: https://www.google.com/maps?q=${lat},${lon}`;
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }, function () {
+      alert('No se pudo obtener tu ubicación. Permitila para poder enviarla por WhatsApp.');
+    });
+  }
+</script>
+
 </body>
 </html>

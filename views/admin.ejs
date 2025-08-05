@@ -18,6 +18,16 @@
         <form action="/eliminar/<%= m.id %>?clave=<%= clave %>" method="post" onsubmit="return confirm('¿Eliminar esta mascota?')">
           <button>🗑️</button>
         </form>
+        <% 
+  const numero = mascota.dueno_whatsapp ? mascota.dueno_whatsapp.replace(/[^0-9]/g, '') : null;
+%>
+<% if (numero) { %>
+  <button onclick="enviarUbicacionWhatsApp('<%= numero %>')" style="background-color:#25D366; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">
+    📍 WhatsApp
+  </button>
+<% } else { %>
+  <em>Sin WhatsApp</em>
+<% } %>
       </td>
     </tr>
   <% }) %>
@@ -29,3 +39,29 @@
   <input type="hidden" name="clave" value="<%= clave %>">
   <button>📤 Exportar base como CSV</button>
 </form>
+
+<br><br>
+
+<form action="/admin/historial" method="get">
+  <input type="hidden" name="clave" value="<%= clave %>">
+  <button>📅 Ver historial de escaneos</button>
+</form>
+
+<script>
+  function enviarUbicacionWhatsApp(numero) {
+    if (!navigator.geolocation) {
+      alert('Tu navegador no soporta geolocalización');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const mensaje = `Hola, encontré a tu mascota gracias a su QR PetQR. Esta es mi ubicación: https://www.google.com/maps?q=${lat},${lon}`;
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }, function () {
+      alert('No se pudo obtener tu ubicación. Permitila para poder enviarla por WhatsApp.');
+    });
+  }
+</script>
